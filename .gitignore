@@ -1,0 +1,12 @@
+# Virtual environment
+.venv/
+
+# IDE and editor-specific files
+.vscode/
+.idea/
+
+# Database files
+db.sqlite3
+
+# Backup and temporary files
+.DS_Store
