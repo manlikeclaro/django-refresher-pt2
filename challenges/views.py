@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 challenges = {
     'january': 'January is the first month of the year, typically associated with new beginnings and resolutions.',
@@ -24,7 +25,11 @@ def month_challenge_by_no(request, month):
     if month <= len(challenges):
         months = list(challenges.keys())
         forward_month = months[month - 1]
-        return HttpResponseRedirect(f'/challenges/{forward_month}')
+        # return HttpResponseRedirect(f'/challenges/{forward_month}')
+        
+        redirect_path = reverse('month-challenge', args=[forward_month])
+        return HttpResponseRedirect(f'{redirect_path}') 
+    
     else:
         return HttpResponseNotFound(f'Invalid Month XD!')
 
