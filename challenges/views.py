@@ -19,6 +19,16 @@ challenges = {
 
 
 # Create your views here.
+def index(request):
+    list_items = ''
+
+    for item in list(challenges.keys()):
+        redirect_path = reverse('month-challenge', args=[item])
+        list_items += f'<li><a href={redirect_path}><h2>{item.capitalize()}</h2></a></li>'
+
+    response_data = f'<ul>{list_items}</ul>'
+
+    return HttpResponse(response_data)
 
 
 def month_challenge_by_no(request, month):
@@ -26,10 +36,10 @@ def month_challenge_by_no(request, month):
         months = list(challenges.keys())
         forward_month = months[month - 1]
         # return HttpResponseRedirect(f'/challenges/{forward_month}')
-        
+
         redirect_path = reverse('month-challenge', args=[forward_month])
-        return HttpResponseRedirect(f'{redirect_path}') 
-    
+        return HttpResponseRedirect(f'{redirect_path}')
+
     else:
         return HttpResponseNotFound(f'Invalid Month XD!')
 
@@ -37,6 +47,10 @@ def month_challenge_by_no(request, month):
 def month_challenge(request, month):
     try:
         challenge_text = challenges[month]
-        return HttpResponse(challenge_text)
+        # return HttpResponse(challenge_text)
+
+        response_data = f'<h1>{challenge_text}</h1>'
+        return HttpResponse(response_data)
+
     except:
         return HttpResponseNotFound(f'This month is not supported!')
