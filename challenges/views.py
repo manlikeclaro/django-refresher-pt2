@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 challenges = {
@@ -31,6 +31,29 @@ def index(request):
     return HttpResponse(response_data)
 
 
+def trial(request):
+    month_list = list(challenges.keys())
+    redirect_paths = []
+
+    for item in month_list:
+        redirect_path = reverse('month-challenge', args=[item])
+        redirect_paths.append(redirect_path)
+
+    # response_data = {
+    #     'months' : month_list,
+    #     'redirect_paths' : redirect_paths
+    # }
+        
+    # Zip the lists together
+    zipped_data = zip(month_list, redirect_paths)
+
+    response_data = {
+        'zipped_data': zipped_data
+    }
+
+    return render(request, 'challenges/single-challenge.html', context=response_data)
+
+
 def month_challenge_by_no(request, month):
     if month <= len(challenges):
         months = list(challenges.keys())
@@ -38,7 +61,8 @@ def month_challenge_by_no(request, month):
         # return HttpResponseRedirect(f'/challenges/{forward_month}')
 
         redirect_path = reverse('month-challenge', args=[forward_month])
-        return HttpResponseRedirect(f'{redirect_path}')
+        # return HttpResponseRedirect(f'{redirect_path}')
+        return redirect(redirect_path)
 
     else:
         return HttpResponseNotFound(f'Invalid Month XD!')
