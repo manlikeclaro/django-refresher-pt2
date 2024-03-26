@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Challenges
+{% endblock %}
+
+{% block content %}
+
+    <!-- {% for month in months %}
+        {% for redirect_path in redirect_paths %}
+            <h1><a href="{{ redirect_path }}">{{ month }}</a></h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, quibusdam recusandae! Temporibus tenetur
+                corporis autem officiis, assumenda reprehenderit iste enim. Nobis, magnam corrupti enim dolorum reprehenderit
+                provident quis vel iste in saepe quas praesentium adipisci repellendus sequi aliquid incidunt delectus quasi
+                optio reiciendis hic exercitationem? Deleniti deserunt ex necessitatibus maxime.</p>
+        {% endfor %}
+    {% endfor %} -->
+
+    {% for month, redirect_path in zipped_data %}
+        <ul>
+            {% comment %} <li><h1><a href="{{ redirect_path }}">{{ month }}</a></h1></li> {% endcomment %}
+            <li><h1><a href="{% url "month-challenge" month %}">{{ month | title }}</a></h1></li>
+        </ul>
+    {% endfor %}
+
+{% endblock%}
