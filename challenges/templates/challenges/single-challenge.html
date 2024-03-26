@@ -1,35 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% block title %}
+    {{ month_text }}
+{% endblock %}
 
-<body>
+{% block content %}
 
-    <!-- {% for month in months %}
-        {% for redirect_path in redirect_paths %}
-            <h1><a href="{{ redirect_path }}">{{ month }}</a></h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, quibusdam recusandae! Temporibus tenetur
-                corporis autem officiis, assumenda reprehenderit iste enim. Nobis, magnam corrupti enim dolorum reprehenderit
-                provident quis vel iste in saepe quas praesentium adipisci repellendus sequi aliquid incidunt delectus quasi
-                optio reiciendis hic exercitationem? Deleniti deserunt ex necessitatibus maxime.</p>
-        {% endfor %}
-    {% endfor %} -->
+    <h1>{{ month_text }} info:</h1>
+    <p><b>{{ challenge_text }}</b></p>
 
-    {% for month, redirect_path in zipped_data %}
-        <h1><a href="{{ redirect_path }}">{{ month }}</a></h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, quibusdam recusandae! Temporibus tenetur
-            corporis autem officiis, assumenda reprehenderit iste enim. Nobis, magnam corrupti enim dolorum reprehenderit
-            provident quis vel iste in saepe quas praesentium adipisci repellendus sequi aliquid incidunt delectus quasi
-            optio reiciendis hic exercitationem? Deleniti deserunt ex necessitatibus maxime.</p>
-    {% endfor %}
-
-
-
-
-</body>
-
-</html>
+{% endblock%}

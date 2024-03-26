@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -33,6 +33,7 @@ def index(request):
 
 def trial(request):
     month_list = list(challenges.keys())
+    # month_list = [key.capitalize() for key in challenges.keys()]
     redirect_paths = []
 
     for item in month_list:
@@ -46,12 +47,13 @@ def trial(request):
         
     # Zip the lists together
     zipped_data = zip(month_list, redirect_paths)
+    # zipped_data = zip([item.capitalize() for item in month_list], redirect_paths)
 
     response_data = {
         'zipped_data': zipped_data
     }
 
-    return render(request, 'challenges/single-challenge.html', context=response_data)
+    return render(request, 'challenges/challenge.html', context=response_data)
 
 
 def month_challenge_by_no(request, month):
@@ -71,10 +73,19 @@ def month_challenge_by_no(request, month):
 def month_challenge(request, month):
     try:
         challenge_text = challenges[month]
+        month_text = month
         # return HttpResponse(challenge_text)
 
-        response_data = f'<h1>{challenge_text}</h1>'
-        return HttpResponse(response_data)
+        # response_data = f'<h1>{challenge_text}</h1>'
+        # return HttpResponse(response_data)
+
+        response_data = {
+            'challenge_text': challenge_text,
+            'month_text': month_text.capitalize()
+        }
+
+        return render(request, 'challenges/single-challenge.html', context=response_data)
 
     except:
-        return HttpResponseNotFound(f'This month is not supported!')
+        # return HttpResponseNotFound(f'This month is not supported!')
+        raise Http404()
