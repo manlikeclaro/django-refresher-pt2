@@ -14,21 +14,17 @@ challenges = {
     'september': 'September is the ninth month of the year, known for back-to-school season and the beginning of autumn.',
     'october': 'October is the tenth month of the year, associated with Halloween and the changing colors of leaves.',
     'november': 'November is the eleventh month of the year, known for Thanksgiving in the United States.',
-    'december': 'December is the twelfth month of the year, known for Christmas and New Year\'s Eve celebrations.'
+    'december': None
 }
 
 
 # Create your views here.
 def index(request):
-    list_items = ''
+    months = list(challenges.keys())
 
-    for item in list(challenges.keys()):
-        redirect_path = reverse('month-challenge', args=[item])
-        list_items += f'<li><a href={redirect_path}><h2>{item.capitalize()}</h2></a></li>'
-
-    response_data = f'<ul>{list_items}</ul>'
-
-    return HttpResponse(response_data)
+    return render(request, "challenges/index.html", {
+        "months": months
+    })
 
 
 def trial(request):

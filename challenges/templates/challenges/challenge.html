@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}
     Challenges
+{% endblock %}
+
+{% block css_files %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'challenges/styles.css' %}"> 
 {% endblock %}
 
 {% block content %}
@@ -16,10 +22,11 @@
         {% endfor %}
     {% endfor %} -->
 
-    {% for month, redirect_path in zipped_data %}
+    {% comment %} {% for month, redirect_path in zipped_data %} {% endcomment %}
+    {% for month in months %}
         <ul>
             {% comment %} <li><h1><a href="{{ redirect_path }}">{{ month }}</a></h1></li> {% endcomment %}
-            <li><h1><a href="{% url "month-challenge" month %}">{{ month | title }}</a></h1></li>
+            <li><a href="{% url "month-challenge" month %}">{{ month | title }}</a></li>
         </ul>
     {% endfor %}
 
